@@ -3,7 +3,7 @@ const currentDate = new Date();
 const startDate = new Date(currentDate.getFullYear(), 0, 1);
 const endDate = new Date(currentDate.getFullYear(), 11, 31);
 
-let progress = (currentDate - startDate) / (endDate - startDate);
+let progress = (currentDate - startDate) / (endDate - startDate)	;
 
 let title = document.getElementsByTagName('title')[0];
 title.innerHTML = "Year " + currentYear + " (" + progress.toFixed(2) + "%)";

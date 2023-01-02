@@ -1,9 +1,11 @@
 body {
+	/* Remove scroll bars */
 	margin: 0;
+	/* Background */
 	background-color: #1C1C1C;
 	min-height: 100%;
 	min-width: 100%;
-
+	/* Center Content */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -11,36 +13,83 @@ body {
 }
 
 .maintext {
-	color: white;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 5vw;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
+	/* Adjust space between text and loading bar */
+	margin-bottom: 2vh;
+	/* Actually center the the whole content */
+	margin-top: 0;
+	/* Prevent Selection (its ugly) */
 	user-select: none;
+	/* Font Stuff */
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14vh;
+	/* Color of the Text */
+	color: rgba(255, 255, 255, 255);
+	background-clip: text;
+	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	/* Animate the Text ever so slightly */
+	animation: hue 10s infinite linear;
 }
 
 .loadingContainer {
+	/* Needed for the bar to stack */
 	position: relative;
+	/* Background of the bar (not filled) */
 	background-color: #171717;
+	/* Size of the bar */
 	width: 70%;
 	height: 8%;
-	outline-style: solid;
+	/* Outline */
+	outline-style: inset;
 	outline-width: 5px;
 	outline-color: black;
 }
 
 .loadingBar {
+	/* Needed for the bar to stack */
 	position: absolute;
+	/* Background color (filled) */
 	background-color: #46005c;
+	/* Why does this need a size actually... well it works */
 	width: 50%;
 	height: 100%;
 }
 
 .githubLink {
-	padding: 5px;
+	/* Prevent Selection (its ugly) */
+	user-select: none;
+	/* Make it almost invisible */
+	color: white;
+	opacity: 0.05;
+	/* Remove link styling */
+	font-family: Arial, Helvetica, sans-serif;
 	text-decoration: none;
-	color: black;
+	/* Font Stuff */
 	font-size: 1vw 1vh;
+	/* Stick it to the bottom of the site with a slight distance */
+	position: fixed;
+	bottom: 1vh;
+}
+
+.githubLink:hover {
+	/* Make the link more visible when hovered */
+	opacity: 1;
+	/* Color of the Text */
+	color: rgba(255, 255, 255, 255);
+	background-clip: text;
+	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: hue-rotate(180deg);
+}
+
+/* Animation for the main text */
+@keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
 }
