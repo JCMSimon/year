@@ -1,3 +1,3 @@
 <h1 align="center">Year</h1>
-<p align="center">Simple Progress bar of the current year</p>
-Inspired by [Progressbar on Twitter](https://twitter.com/ProgressBar202_)
+
+Simple Progress bar of the current year inspired by [Progressbar on Twitter](https://twitter.com/ProgressBar202_) in vanilla html,css and js
