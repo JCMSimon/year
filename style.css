@@ -14,11 +14,11 @@ body {
 	color: white;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 5vw;
-    	-webkit-user-select: none;
-    	-khtml-user-select: none;
-    	-moz-user-select: none;
-    	-o-user-select: none;
-    	user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
 .loadingContainer {
@@ -36,4 +36,11 @@ body {
 	background-color: #46005c;
 	width: 50%;
 	height: 100%;
+}
+
+.githubLink {
+	padding: 5px;
+	text-decoration: none;
+	color: black;
+	font-size: 1vw 1vh;
 }
