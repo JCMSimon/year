@@ -2,6 +2,7 @@
 const title = document.getElementsByTagName('title')[0];
 const mainText = document.getElementsByClassName('mainText')[0];
 const loadingBar = document.getElementsByClassName('loadingBar')[0];
+const loadingText = document.getElementsByClassName('loadingText')[0];
 
 function update() {
 	// Update vars
@@ -10,19 +11,13 @@ function update() {
 	let startDate = new Date(currentDate.getFullYear(), 0, 1);
 	let endDate = new Date(currentDate.getFullYear(), 11, 31);
 	// Calculate progress
-	let progress = (currentDate - startDate) / (endDate - startDate)	;
+	let progress = (currentDate - startDate) / (endDate - startDate) * 100;
 	// Edit elements with new values
-	title.innerHTML = "Year " + currentYear + " (" + Math.floor(progress * 100) / 100 + "%)";
+	title.innerHTML = "Year " + currentYear + " (" + Math.floor(progress) + "%)";
 	mainText.innerHTML = currentYear;
 	loadingBar.style.width = progress + "%"
-	// Some info for myself in the console
-	console.clear()
-	console.log(
-		'Year = '+currentYear+ '\n' +
-		'Date = '+currentDate+  '\n' +
-		'Progress = '+progress+  '\n' +
-		'Clean Progress = '+Math.floor(progress * 100) / 100 + '%');
-	}
+	loadingText.innerHTML = Math.floor(progress) + "%"
+}
 
 // Call the update Function every Second
 (function(){
