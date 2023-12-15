@@ -1,8 +1,8 @@
 // Get all elements that need changing
 const title = document.getElementsByTagName('title')[0];
-const mainText = document.getElementsByClassName('mainText')[0];
+const yearText = document.getElementsByClassName('yearText')[0];
 const loadingBar = document.getElementsByClassName('loadingBar')[0];
-const loadingText = document.getElementsByClassName('loadingText')[0];
+const indexText = document.getElementsByClassName('Index')[0];
 
 function update() {
 	// Update vars
@@ -14,9 +14,9 @@ function update() {
 	let progress = (currentDate - startDate) / (endDate - startDate) * 100;
 	// Edit elements with new values
 	title.innerHTML = "Year " + currentYear + " (" + Math.floor(progress) + "%)";
-	mainText.innerHTML = currentYear;
+	yearText.innerHTML = currentYear;
 	loadingBar.style.width = progress + "%"
-	loadingText.innerHTML = Math.floor(progress) + "%"
+	indexText.innerHTML = Math.floor(progress)
 }
 
 // Call the update Function every Second
