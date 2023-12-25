@@ -30,6 +30,7 @@ body {
 
 .loadingBar {
 	background-color: black;
+	transition 0.75s;
 }
 
 .progressIndexContainer {
