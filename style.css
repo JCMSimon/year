@@ -29,6 +29,7 @@ body {
 }
 
 .loadingBar {
+	width: 1px;
 	background-color: black;
 	transition: width 0.4s ease-out;
 }
