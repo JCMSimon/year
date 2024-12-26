@@ -1,13 +1,25 @@
+// remove "Please enable Javascript" notice ASAP
+const eventText = document.getElementsByClassName('eventText')[0];
+eventText.textContent = " ";
+
+//  List of events
+const events = Object.freeze({
+	none         : "NONE",
+	AdventSeason : "ITS ADVENT",
+	Christmas    : "ITS CHRISTMAS",
+	NewYearsEve  : "ITS NEW YEARS",
+})
+
 // region: Main functionality
 // Get all elements that need changing at some point
 const title = document.getElementsByTagName('title')[0];
 const yearText = document.getElementsByClassName('yearText')[0];
 const loadingBar = document.getElementsByClassName('loadingBar')[0];
 const progressPercentage = document.getElementsByClassName('progressPercentage')[0];
-const eventText = document.getElementsByClassName('eventText')[0];
+// Set current event to none by default
+var currentEventEffect = events.none
 
-// remove "Please enable Javascript" notice
-eventText.textContent = " ";
+
 
 function update() {
 	// Update vars
@@ -28,46 +40,51 @@ function update() {
 
 // region: Special events
 
-// Flag indicating that a decoratiion is active
-let decorated = false
-
 function eventDetection(currentDate) {
-	// Advent season check (December 1st to 24th)
-	let isAdvent = (currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() <= 23 || currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() >= 26);
-	// Christmas check (December 26th)
-	let isChristmas = (currentDate.getMonth() == 11 && currentDate.getDate() == 26);
-	// New years event check (January 1st)
+	let isAdvent = (currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() <= 31 && !(currentDate.getDate() >= 24 && currentDate.getDate() <= 26));
+	let isChristmas = (currentDate.getMonth() == 11 && currentDate.getDate() >= 24 && currentDate.getDate() <= 26);
 	let isNewYears = (currentDate.getMonth() == 0 && currentDate.getDate() == 1);
-
-	if (!decorated) {
-		if (isAdvent) {
-			eventText.textContent = "Happy Advent Season!";
-			decorated = true;
-			addFallingThings(["❄", "❅", "❆"], 40, "white");
-		}
-
-		if (isChristmas) {
-			eventText.textContent = "Merry Christmas!";
-			decorated = true;
-			addFallingThings(["🎄", "🎁", "🎅", "❄", "❅", "❆"], 40, "white");
-			changeColors("#BD0827", "gold");
-		}
-
-		if (isNewYears) {
-			eventText.textContent = "Happy New Year!";
-			decorated = true;
-			addFireworks();
-
-		}
-
-	} else if (decorated) {
-		if (!isAdvent && !isChristmas && !isNewYears) {
-			removeFallingThings();
+	if (isAdvent && currentEventEffect != events.AdventSeason) {
+		// If its advent the only active effect can be christmas
+		if (currentEventEffect == events.Christmas) {
 			changeColors("black", "white");
-			removeFireworks();
-			decorated = false;
+			removeFallingThings()
 		}
-
+		// Now that we have a clean slate, we can add the advent decoration
+		currentEventEffect = events.AdventSeason
+		addFallingThings(["❄", "❅", "❆"], 40, "white");
+		eventText.textContent = "Happy Advent Season!";
+	} else if (isChristmas && currentEventEffect != events.Christmas) {
+		// If its christmas the only active effect can be advent
+		if (currentEventEffect == events.AdventSeason) {
+			changeColors("black", "white");
+			removeFallingThings()
+		}
+		// Now that we have a clean slate, we can add the advent decoration
+		currentEventEffect = events.Christmas
+		changeColors("#BD0827", "gold");
+		addFallingThings(["🎄", "🎁", "🎅","🎄", "🎁", "🎅", "❄", "❅", "❆"], 60, "white");
+		eventText.textContent = "Merry Christmas!";
+	} else if (isNewYears && currentEventEffect != events.NewYearsEve) {
+		// If its new years eve the only active effect can be advent
+		if (currentEventEffect == events.AdventSeason) {
+			changeColors("black", "white");
+			removeFallingThings()
+		}
+		// Now that we have a clean slate, we can add the advent decoration
+		currentEventEffect = events.NewYearsEve
+		addFireworks()
+		eventText.textContent = "Happy New Year!";
+		// reset case
+	} else if (!isAdvent && !isChristmas && !isNewYears && currentEventEffect != events.none) {
+		try {
+			changeColors("black", "white");
+			removeFallingThings()
+			removeFireworks()
+			currentEventEffect = events.none
+		} catch (error) {
+			console.log("YO LOOK AT THIS IDIOT CALLED SIMON WHO MADE A MISTAKE AHAHAHAHAHHAHA")
+		}
 	}
 }
 
