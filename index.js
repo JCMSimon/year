@@ -42,9 +42,10 @@ function update() {
 
 // region: Special events (Update logic)
 function eventDetection(currentDate) {
-	let isAdvent = (currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() <= 31 && !(currentDate.getDate() >= 24 && currentDate.getDate() <= 26));
-	let isChristmas = (currentDate.getMonth() == 11 && currentDate.getDate() >= 24 && currentDate.getDate() <= 26);
+	let isAdvent = (currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() <= 24);
+	let isChristmas = (currentDate.getMonth() == 11 && currentDate.getDate() >= 25 && currentDate.getDate() <= 26);
 	let isNewYears = (currentDate.getMonth() == 0 && currentDate.getDate() == 1);
+	// TODO | Add more events
 	if (isAdvent && currentEventEffect != events.AdventSeason) {
 		// If its advent the only active effect can be christmas
 		if (currentEventEffect == events.Christmas) {
