@@ -2,6 +2,7 @@
 const eventText = document.getElementsByClassName('eventText')[0];
 eventText.textContent = " ";
 
+
 //  List of events
 const events = Object.freeze({
 	none         : "NONE",
@@ -9,6 +10,7 @@ const events = Object.freeze({
 	Christmas    : "ITS CHRISTMAS",
 	NewYearsEve  : "ITS NEW YEARS",
 })
+
 
 // region: Main functionality
 // Get all elements that need changing at some point
@@ -18,7 +20,6 @@ const loadingBar = document.getElementsByClassName('loadingBar')[0];
 const progressPercentage = document.getElementsByClassName('progressPercentage')[0];
 // Set current event to none by default
 var currentEventEffect = events.none
-
 
 
 function update() {
@@ -38,12 +39,16 @@ function update() {
 	eventDetection(currentDate);
 }
 
-// region: Special events
 
+// region: Special events (Update logic)
 function eventDetection(currentDate) {
-	let isAdvent = (currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() <= 31 && !(currentDate.getDate() >= 24 && currentDate.getDate() <= 26));
-	let isChristmas = (currentDate.getMonth() == 11 && currentDate.getDate() >= 24 && currentDate.getDate() <= 26);
-	let isNewYears = (currentDate.getMonth() == 0 && currentDate.getDate() == 1);
+	let isAdvent = false
+	let isChristmas = false
+	let isNewYears = false
+	
+	// let isAdvent = (currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() <= 31 && !(currentDate.getDate() >= 24 && currentDate.getDate() <= 26));
+	// let isChristmas = (currentDate.getMonth() == 11 && currentDate.getDate() >= 24 && currentDate.getDate() <= 26);
+	// let isNewYears = (currentDate.getMonth() == 0 && currentDate.getDate() == 1);
 	if (isAdvent && currentEventEffect != events.AdventSeason) {
 		// If its advent the only active effect can be christmas
 		if (currentEventEffect == events.Christmas) {
@@ -88,6 +93,7 @@ function eventDetection(currentDate) {
 	}
 }
 
+// region: Special events (event logic)
 function addFallingThings(things,amount,color) {
 	for (let i = 0; i < amount; i++) {
 		const fallingContainer = document.createElement('div');
@@ -136,7 +142,7 @@ function removeFireworks() {
 	}
 }
 
-// region: Update
+// region: general Update
 (function(){
 	update();
 	setTimeout(arguments.callee, 1000);
