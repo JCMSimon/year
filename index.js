@@ -5,10 +5,11 @@ eventText.textContent = " ";
 
 //  List of events
 const events = Object.freeze({
-	none         : "NONE",
-	AdventSeason : "ITS ADVENT",
-	Christmas    : "ITS CHRISTMAS",
-	NewYearsEve  : "ITS NEW YEARS",
+	none              : "NONE",
+	AdventSeason      : "ITS ADVENT",
+	Christmas         : "ITS CHRISTMAS",
+	NewYearsEve       : "ITS NEW YEARS",
+	NewYearsCountdown : "ITS ALMOST NEW YEARS",
 })
 
 
@@ -44,7 +45,9 @@ function update() {
 function eventDetection(currentDate) {
 	let isAdvent = (currentDate.getMonth() == 11 && currentDate.getDate() >= 1 && currentDate.getDate() <= 24);
 	let isChristmas = (currentDate.getMonth() == 11 && currentDate.getDate() >= 25 && currentDate.getDate() <= 26);
+	let isNewYearsCountdown = (currentDate.getMonth() == 11 && currentDate.getDate() == 31);
 	let isNewYears = (currentDate.getMonth() == 0 && currentDate.getDate() == 1);
+	let 
 	// TODO | Add more events
 	if (isAdvent && currentEventEffect != events.AdventSeason) {
 		// If its advent the only active effect can be christmas
@@ -67,18 +70,21 @@ function eventDetection(currentDate) {
 		changeColors("#BD0827", "gold");
 		addFallingThings(["🎄", "🎁", "🎅","🎄", "🎁", "🎅", "❄", "❅", "❆"], 60, "white");
 		eventText.textContent = "Merry Christmas!";
-	} else if (isNewYears && currentEventEffect != events.NewYearsEve) {
-		// If its new years eve the only active effect can be advent
+	} else if (isNewYearsCountdown && currentEventEffect != events.NewYearsCountdown) {
+		// If its (almost) new years eve the only active effect can be advent
 		if (currentEventEffect == events.AdventSeason) {
 			changeColors("black", "white");
 			removeFallingThings()
 		}
-		// Now that we have a clean slate, we can add the advent decoration
+		currentEventEffect = events.NewYearsCountdown
+		// Now that we have a clean slate, we can add the countdown decoration
+		eventText.textContent = "New Year in: " + (24 - currentDate.getHours()) + "h " + (60 - currentDate.getMinutes()) + "m " + (60 - currentDate.getSeconds()) + "s";
+	} else if (isNewYears && currentEventEffect != events.NewYearsEve) {
 		currentEventEffect = events.NewYearsEve
 		addFireworks()
 		eventText.textContent = "Happy New Year!";
-		// reset case
-	} else if (!isAdvent && !isChristmas && !isNewYears && currentEventEffect != events.none) {
+	// reset case
+	} else if (!isAdvent && !isChristmas && !isNewYears && !isNewYearsCountdown && currentEventEffect != events.none) {
 		try {
 			changeColors("black", "white");
 			removeFallingThings()
